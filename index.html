@@ -36,7 +36,21 @@
 
         }
 
+#carp {
+            background-image: url("images/carp.jpg");
+            background-size: auto;
+            width: 100%;
+            height: 250px;
+
+        }
+
         #road {
+            background-image: url("images/images.jpg");
+            background-repeat: repeat-x;
+            background-size: contain;
+            padding: 5px;
+        }
+        #road1 {
             background-image: url("images/images.jpg");
             background-repeat: repeat-x;
             background-size: contain;
@@ -117,6 +131,17 @@
 
 </head>
 <body>
+<audio id="levelUp" src="audio/Level-up-sound-effect.mp3" >
+
+</audio>
+<audio id="winSound" >
+    <source src="audio/Icy-bell-gliss-ascending.mp3" >
+
+</audio>
+<audio  id="carSound"> <source src="audio/BMW.mp3">
+</audio>
+<audio id="crash"> <source src="audio/Crash.mp3" >
+</audio>
 <div id="sky"></div>
 <img src="images/wait.gif" id="isaac" />
 
@@ -130,6 +155,20 @@
     <div class="car car3"><img src="images/player_car.jpg" width="100" height="60"/></div>
 
     <div class="car"><img src="images/player_car.jpg" width="100" height="60"/></div>
+
+</div>
+<div id="carp"></div>
+<div id="road1">
+    <div class="car car1"><img src="images/player_car.jpg" width="100" height="60"/></div>
+
+    <div class="car car2"><img src="images/player_car.jpg" width="100" height="60"/></div>
+
+    <div class="car car3"><img src="images/player_car.jpg" width="100" height="60"/></div>
+
+    <div class="car"><img src="images/player_car.jpg" width="100" height="60"/></div>
+
+
+
 
 </div>
 <div id="finish"></div>
