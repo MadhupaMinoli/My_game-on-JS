@@ -1,9 +1,9 @@
-var isaac = null;
+var blackCutiee = null;
 function carSpeed() {
     var car = document.getElementsByClassName("car");
     for (var i = 0; i < 8; i++) {
 
-        var rand = (Math.random()*10)
+        var rand =parseFloat(Math.random()*3+1).toFixed(1);
         car[i].style.animationDuration=rand+"s";
     }
 }
@@ -11,65 +11,51 @@ function carSpeed() {
 
 
 function init() {
+    $('#blackCutiee').fadeIn("slow");
     $('#levelUp').trigger('load');
     $('#levelUp').trigger('play');
     // $('#carSound').play();
-  isaac = document.getElementById('isaac');
-  isaac.style.position = 'absolute';
-  isaac.style.left = 50 + 'vw';
-  isaac.style.top = '125px';
-  window.addEventListener('keydown', moveSelection);
-   carSpeed();
-
-  //   var round = window.localStorage.getItem("round");
-  //   console.log(round);
-  //   if(!round ){
-  //       console.log(round);
-  //       window.localStorage.setItem("round", 10);
-  //   }
-  //   var round = window.localStorage.getItem("round");
-  //   carSpeed();
-    // var car1 = document.getElementById('car1');
-    // var rand = Math.random()*round;
-    // car1.style.animationDuration = rand+"s";
-    // console.log(round, rand);
+    blackCutiee = document.getElementById('blackCutiee');
+    blackCutiee.style.position = 'absolute';
+    blackCutiee.style.left = 50 + 'vw';
+    blackCutiee.style.top = '125px';
+    window.addEventListener('keydown', moveSelection);
+    carSpeed();
 
 }
-
 var finish = document.getElementById('finish');
 
 function moveRight(){
-  if (isaac.style.left != 95 + "vw") {
-    isaac.style.left = parseInt(isaac.style.left) + 5 + 'vw';
+  if (blackCutiee.style.left != 95 + "vw") {
+    blackCutiee.style.left = parseInt(blackCutiee.style.left) + 5 + 'vw';
   }
 }
 
 function moveLeft(){
-  if (isaac.style.left != 0 + "vw"){
-    isaac.style.left = parseInt(isaac.style.left) - 5 + 'vw';
+  if (blackCutiee.style.left != 0 + "vw"){
+    blackCutiee.style.left = parseInt(blackCutiee.style.left) - 5 + 'vw';
   }
 }
 
 function moveUp(){
 
-  if (isaac.style.top != 125 + "px") {
-      $('#isaac').attr("src","images/cross.gif");
-    isaac.style.top = parseInt(isaac.style.top) - 40 + 'px';
+  if (blackCutiee.style.top != 125 + "px") {
+      $('#blackCutiee').attr("src","images/cross.gif");
+    blackCutiee.style.top = parseInt(blackCutiee.style.top) - 40 + 'px';
+    scrollBy(0,5);
 
   }
 }
 function moveDown(){
 
-    if (isaac.style.top!=1605+"px") {
-        $('#isaac').attr("src","images/cross.gif");
-        isaac.style.top = parseInt(isaac.style.top) + 40 + 'px';
-
+    if (blackCutiee.style.top!=1605+"px") {
+        $('#blackCutiee').attr("src","images/cross.gif");
+        blackCutiee.style.top = parseInt(blackCutiee.style.top) + 40 + 'px';
+scrollBy(0,5);
     }
 }
 
-function wait() {
-    $('#isaac').attr("src","images/wait.gif");
-}
+
 
 function moveSelection(evt) {
   switch (evt.keyCode) {
@@ -89,31 +75,30 @@ function moveSelection(evt) {
       }
 
 }
-function hitMessage() {
-    alert('Oops! You\'ve been hit by a car!')
-    window.scrollTo(0,0);
-    window.location.reload();
-}
+
+
+
+
 var collision = setInterval(collisionDetect, 50);
 
 function collisionDetect() {
     var car = document.getElementsByClassName("car");
-    var isaac = document.getElementById('isaac');
+    var isaac = document.getElementById('blackCutiee');
     for (var i = 0; i < 8; i++) {
 
         if (isaac.offsetLeft < car[i].offsetLeft + car[i].offsetWidth &&
             isaac.offsetLeft + isaac.offsetWidth > car[i].offsetLeft &&
             isaac.offsetTop < car[i].offsetTop + car[i].offsetHeight &&
             isaac.offsetHeight + isaac.offsetTop > car[i].offsetTop) {
+            $('#blackCutiee').attr("src","images/hit.gif");
 
-            $('#isaac').attr("src","images/hit.gif");
+             $('#crash').trigger('load');
+            $('#crash').trigger('play');
 
-            $('#isaac').css("height","200px");
-            $('#isaac').css("width","200px");
+            car[i].style.setProperty("animation", "none", "important");
+            $('#blackCutiee').fadeOut("slow");
 
-            $('#isaac').stop();
-            setTimeout(hitMessage, 250);
-
+            modal.style.display="block";
 
         }
 
@@ -121,41 +106,67 @@ function collisionDetect() {
 }
 var win = setInterval(Finished, 100);
 
-function winMessage() {
-    alert("You Win! Congrats!!!!!!!");
+var count=1;
+function Finished() {
+    if (blackCutiee.offsetTop > finish.offsetTop) {
+
+        if(count==6){
+            $('#winSound').trigger('load');
+            $('#winSound').trigger('play');
+            $('#blackCutiee').attr("src","images/wait.gif");
+            $('#blackCutiee').fadeOut("slow");
+
+            modal2.style.display="block";
+}
+else{
+            $('#blackCutiee').fadeOut("slow");
+            level.style.display="block";
+        }
+    }
+}
+
+
+var modal = document.getElementById('myModal');
+var modal2 = document.getElementById('myModal2');
+var level = document.getElementById('level');
+var span = document.getElementsByClassName("close")[0];
+var span1 = document.getElementsByClassName("close")[1];
+var span2 = document.getElementsByClassName("close")[2];
+var play = document.getElementById('play');
+
+play.onclick=function () {
+    level.style.display="none";
+    count+=1;
+    window.scrollTo(0, 0);
+    init();
+}
+
+span.onclick = function() {
+    modal.style.display = "none";
     window.scrollTo(0, 0);
 
     window.location.reload();
-    }
-
-var count=1;
-function Finished() {
-    if (isaac.offsetTop > finish.offsetTop) {
-
-        // window.location.reload();
-        // var round = window.localStorage.getItem("round");
-        // if(round && round>1){
-        //     window.localStorage.setItem("round",round-1 );
-        //
-        // }
-
-
-         alert("Level" +count+ ":You Win!");
-
-
-        count+=1;
-window.scrollTo(0,0)
-        init();
-        if(count==5){
-            $('#winSound').trigger('load');
-            $('#winSound').trigger('play');
-    setTimeout(winMessage, 50);
+    $('#blackCutiee').fadeIn("slow");
 }
-        //
-        // $('#isaac').attr("src","images/wait.gif");
-        // $('#isaac').stop();
-        //
-        // setTimeout(winMessage, 50);
+span1.onclick = function() {
+    modal.style.display = "none";
+    window.scrollTo(0, 0);
+
+    window.location.reload();
+    $('#blackCutiee').fadeIn("slow");
+}
+span2.onclick = function() {
+    modal.style.display = "none";
+    window.scrollTo(0, 0);
+
+    window.location.reload();
+    $('#blackCutiee').fadeIn("slow");
+}
+
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+
     }
 }
 window.onload = init;
