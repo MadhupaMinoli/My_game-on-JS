@@ -3,11 +3,14 @@ function carSpeed() {
     var car = document.getElementsByClassName("car");
     for (var i = 0; i < 8; i++) {
 
-        var rand =parseFloat(Math.random()*3+1).toFixed(1);
+        var rand =parseFloat(Math.random()*3+2).toFixed(1);
         car[i].style.animationDuration=rand+"s";
     }
 }
-
+var x=setInterval(function () {
+    $('#carSound').trigger('load');
+    $('#carSound').trigger('play');
+},180);
 
 
 function init() {
