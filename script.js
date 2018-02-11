@@ -7,10 +7,7 @@ function carSpeed() {
         car[i].style.animationDuration=rand+"s";
     }
 }
-var x=setInterval(function () {
-    $('#carSound').trigger('load');
-    $('#carSound').trigger('play');
-},180);
+
 
 
 function init() {
@@ -99,7 +96,7 @@ function collisionDetect() {
             $('#crash').trigger('play');
 
             car[i].style.setProperty("animation", "none", "important");
-            $('#blackCutiee').fadeOut("slow");
+            $('#blackCutiee').fadeOut("fast");
 
             modal.style.display="block";
 
